@@ -1,5 +1,8 @@
 {
   "name": "athena",
   "owner": { "name": "zzgiabaozzbui" },
-  "plugins": [{ "name": "athena-starter", "source": "./" }]
+  "plugins": [
+    { "name": "athena-starter", "source": "./" },
+    { "name": "athena-observatory", "source": "./plugins/observatory" }
+  ]
 }

@@ -1,0 +1,8 @@
+{
+  "name": "athena-observatory",
+  "version": "0.1.0",
+  "description": "Optional read-only dashboard for plans and agent runs: opens Agent Observatory on 127.0.0.1 for the current repo.",
+  "license": "MIT",
+  "repository": "https://github.com/zzgiabaozzbui/observatory",
+  "author": { "name": "zzgiabaozzbui" }
+}
