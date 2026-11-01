@@ -8,7 +8,7 @@
 // No opt-out switch: to turn it off, disable the plugin.
 //
 // Adapted from github.com/affaan-m/ecc · scripts/hooks/block-no-verify.js (MIT, © 2026 Affaan Mustafa), v2.2.3.
-// ponytail: does not catch bash -c / sh -c, eval, subshells `(...)` / `$(...)`, `time git`, git aliases, scripts wrapping git, GIT_CONFIG_* env. Add when a real bypass shows up.
+// ponytail: does not catch bash -c / sh -c, eval, subshells `(...)` / `$(...)`, `time git`, git aliases, scripts wrapping git, GIT_CONFIG_* env; `HUSKY=0` as a word of any non-git command (even `echo HUSKY=0`) and read-only `git config --get core.hooksPath` are blocked too. Add when a real bypass shows up.
 //
 // No external packages. Never throws: a failing hook must not block work.
 
@@ -52,7 +52,7 @@ function checkSegment(words) {
   let husky = false;
   while (i < words.length && /^[A-Za-z_]\w*=/.test(words[i])) { if (words[i] === 'HUSKY=0') husky = true; i++; }
   const base = (words[i] || '').split(/[\\/]/).pop().toLowerCase();
-  if (base !== 'git' && base !== 'git.exe') return null;
+  if (base !== 'git' && base !== 'git.exe') return words.slice(i).includes('HUSKY=0') ? REASON : null; // export / env HUSKY=0
   i++;
   let hooksPath = false;
   while (i < words.length && words[i].startsWith('-')) {
@@ -61,6 +61,7 @@ function checkSegment(words) {
     else if (GLOBAL_WITH_VALUE.has(t)) i++;
   }
   const sub = words[i++];
+  if (sub === 'config' && words.slice(i).some((w) => /^core\.hookspath$/i.test(w))) return REASON;
   if (!PROTECTED.has(sub)) return null;
   if (hooksPath || husky) return REASON;
   for (; i < words.length; i++) {

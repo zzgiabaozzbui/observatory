@@ -34,7 +34,7 @@ for (const n of ['tsconfig.json', 'tsconfig.app.json', 'vite.config.ts', 'packag
   assert.equal(isProtected(n), false, n);
 }
 assert.match(REASON, /protected/);
-assert.match(REASON, /ATHENA_CONFIG_PROTECTION=off/);
+assert.doesNotMatch(REASON, /ATHENA_CONFIG_PROTECTION/);
 
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'athena-cp-test-'));
 try {
@@ -73,10 +73,9 @@ try {
     assert.match(run({ tool_name: 'Edit', tool_input: { file_path: path.join(repo, '.eslintrc.json').replace(/\//g, '\\') } }), /"deny"/);
   }
 
-  // Opt-out: ATHENA_CONFIG_PROTECTION=off lets the same edits through
+  // No opt-out: the old env switch no longer lets edits through
   const off = { ATHENA_CONFIG_PROTECTION: 'off' };
-  assert.equal(edit('Edit', '.eslintrc.json', off), '');
-  assert.equal(run({ tool_name: 'Edit', tool_input: { file_path: '.eslintrc.json' } }, undefined, off), '');
+  assert.match(edit('Edit', '.eslintrc.json', off), /"deny"/);
 
   // Pass: Write a biome.json that does not exist
   assert.equal(edit('Write', 'new/biome.json'), '');

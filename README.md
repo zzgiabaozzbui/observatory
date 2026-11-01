@@ -63,7 +63,7 @@ The hooks run with `node`: Node 18 or later must be on your PATH. A native Claud
 
 - **SessionStart**: injects the core rules (`rules/core.md`) and reminds the agent to invoke `routing` first (after a context compaction it reminds the agent to resume the running plan instead).
 - **Block `--no-verify`**: stops Bash commands that skip git hooks.
-- **Protect lint config**: stops edits to existing lint / format config files (eslint, prettier, biome, commitlint); the agent must fix the code, not loosen the config. Set `ATHENA_CONFIG_PROTECTION=off` to edit one yourself.
+- **Protect lint config**: stops edits to existing lint / format config files (eslint, prettier, biome, commitlint); the agent must fix the code, not loosen the config.
 
 To turn the hooks off, disable the plugin with `/plugin` (select `athena-starter`, then Disable).
 

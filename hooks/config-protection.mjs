@@ -8,7 +8,7 @@
 //
 // Blocks when the file basename (case-insensitive) is in the list AND the file already exists; creating a new one passes.
 // Not protected: tsconfig*, vite.config.*, package.json, .editorconfig, test config.
-// Opt-out for a user who really wants to edit config: env ATHENA_CONFIG_PROTECTION=off.
+// No opt-out switch: to turn it off, disable the plugin.
 // Adapted from github.com/affaan-m/ecc · scripts/hooks/config-protection.js (MIT, © 2026 Affaan Mustafa), v2.2.3.
 // ponytail: only blocks file-writing tools; Bash sed/echo can still dodge it. Block Bash when a real bypass shows up.
 //
@@ -19,7 +19,7 @@ import path from 'node:path';
 
 export const REASON =
   'Lint / format config files are protected: fix the code to pass the checks, do not loosen the config. ' +
-  'If a change is truly needed, tell the user: they edit it themselves or set ATHENA_CONFIG_PROTECTION=off, even if they already approved it in chat. Do not edit via Bash (sed, echo >).';
+  'If a change is truly needed, tell the user: they edit it themselves, even if they already approved it in chat. Do not edit via Bash (sed, echo >).';
 
 const NAMES = new Set([
   '.eslintrc', '.eslintrc.js', '.eslintrc.cjs', '.eslintrc.json', '.eslintrc.yml', '.eslintrc.yaml',
@@ -68,7 +68,6 @@ export function isProtected(name) {
 }
 
 function main() {
-  if (process.env.ATHENA_CONFIG_PROTECTION === 'off') return;
   let payload = {};
   try { payload = JSON.parse(fs.readFileSync(0, 'utf8') || '{}'); } catch { /* empty stdin */ }
   const w = writeTarget(payload);

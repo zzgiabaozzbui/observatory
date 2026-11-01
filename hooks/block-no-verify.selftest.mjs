@@ -21,6 +21,10 @@ const blocked = [
   'git -c core.hooksPath=/dev/null commit -m x', // hook dir override
   'git -c CORE.HOOKSPATH=x push', // key is case-insensitive
   'HUSKY=0 git commit -m x', // husky off via env
+  'export HUSKY=0; git commit -m x', // husky off via export
+  'env HUSKY=0 git commit -m x', // husky off via env command
+  'git config core.hooksPath /dev/null && git commit -m x', // hooksPath set via config
+  'git config --get core.hooksPath', // ponytail: read-only form blocked too, not told apart
   'cd a && git commit --no-verify -m x', // segment after &&
   'GIT.EXE commit --no-verify -m x', // basename git.exe, any case
   'git commit 2>&1 --no-verify -m x', // & in a redirect does not split
