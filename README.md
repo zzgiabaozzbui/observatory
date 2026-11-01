@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-d97757.svg)](#quick-start)
-[![Latest release](https://img.shields.io/github/v/release/zzgiabaozzbui/observatory?label=desktop%20app)](https://github.com/zzgiabaozzbui/observatory/releases/latest)
+[![Latest release](https://img.shields.io/github/v/release/zzgiabaozzbui/athena-starter?label=desktop%20app)](https://github.com/zzgiabaozzbui/athena-starter/releases/latest)
 
 ![Agent Observatory showing the full plan of a 14-task mission](docs/images/observatory-full-plan.png)
 
@@ -23,7 +23,7 @@
 ## Quick start
 
 ```
-/plugin install athena-starter --marketplace zzgiabaozzbui/observatory
+/plugin install athena-starter --marketplace zzgiabaozzbui/athena-starter
 ```
 
 Start a new session and ask for anything. The agent answers with a flow question, then works through the matching skill.
@@ -34,14 +34,14 @@ Start a new session and ask for anything. The agent answers with a flow question
 Claude Code before 2.1.275, two steps (the marketplace is named `athena`):
 
 ```
-/plugin marketplace add zzgiabaozzbui/observatory
+/plugin marketplace add zzgiabaozzbui/athena-starter
 /plugin install athena-starter@athena
 ```
 
 With APM:
 
 ```
-apm install zzgiabaozzbui/observatory
+apm install zzgiabaozzbui/athena-starter
 ```
 
 The hooks run with `node`: Node 18 or later must be on your PATH. A native Claude Code install may not include Node; without it the hooks stay silent and do nothing.
@@ -61,7 +61,7 @@ The hooks run with `node`: Node 18 or later must be on your PATH. A native Claud
 
 A local dashboard for the plans and agents in your repos: overview, Kanban board, mission list, full plan graph, timeline, roadmap, agent and skill usage.
 
-**[Download the latest Windows installer](https://github.com/zzgiabaozzbui/observatory/releases/latest)** (`Agent-Observatory-Setup-*.exe`).
+**[Download the latest Windows installer](https://github.com/zzgiabaozzbui/athena-starter/releases/latest)** (`Agent-Observatory-Setup-*.exe`).
 
 - Reads the `docs/artifact/` folders and progress tables that Athena Starter writes.
 - Read-only and local: it listens on 127.0.0.1 only and sends nothing out.
