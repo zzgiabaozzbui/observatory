@@ -1,0 +1,15 @@
+Source and license for material in this folder
+
+Part of skills/security-testing/SKILL.md (the rule that missing advisory data means "cannot assess", never "clean") is
+adapted and rewritten from:
+
+  github.com/trailofbits/skills · plugins/supply-chain-risk-auditor
+  Copyright (c) Trail of Bits
+  License: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+  https://creativecommons.org/licenses/by-sa/4.0/
+
+Changes: the idea was condensed and rewritten in new wording, merged with a role x endpoint authorization matrix, and
+translated into this repository's skill format. No endorsement by the original authors is implied.
+
+Under CC BY-SA 4.0, the adapted material in this folder is shared under the same license (CC BY-SA 4.0). The rest of the
+repository stays under the license in the root LICENSE file.
