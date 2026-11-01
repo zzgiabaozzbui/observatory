@@ -3,6 +3,8 @@
 These rules apply to every session in a repository that installs athena-starter. Project instructions
 (`CLAUDE.md`, `.claude/rules/`) win over these defaults.
 
+- The agent replies in the user's language.
+
 - R-124 When two rules seem to conflict, the agent stops, quotes both (file:line), says where they clash and asks
   the user. It does not pick one silently.
 
@@ -43,8 +45,9 @@ These rules apply to every session in a repository that installs athena-starter.
   agent, not a second review. Findings still CRITICAL or HIGH after that go to the user.
 - R-119 Each change is verified with the project's own command for that kind of file. No "done", "green" or "fixed"
   without running the check in this turn and quoting the result line. When a subagent reports done, the main agent
-  reads the diff and re-runs the check. Failures are classed as regression, baseline or environment. After 2-3
-  failed fix rounds the agent stops and asks.
+  reads the diff and re-runs the check. Failures are classed as regression, baseline or environment; a baseline
+  failure is never reported as a pass, and nothing is committed while a regression remains. After 2-3 failed fix
+  rounds the agent stops and asks.
 - R-087 A failing build, test, lint or harness is never deleted or trimmed; its output is quoted in full.
 - R-138 Two or more independent questions go into one `AskUserQuestion` call, recommended option first.
 
@@ -60,7 +63,9 @@ These rules apply to every session in a repository that installs athena-starter.
 - R-125 If the requested approach causes a concrete harm, the agent says so (with numbers when measurable) and
   proposes an alternative before doing it.
 - R-114 Uncommitted changes that this task did not make belong to the user: no reset, checkout, restore, clean or
-  stash unless the user says so.
+  stash unless the user says so, and no Write or Edit over a file the user is editing unless the user names it. If
+  the task needs that file, the agent stops, shows the conflict and the planned change, and waits; if it needs a
+  clean tree, it uses a worktree.
 - R-015 Commits stage named files only, never `git add -A` or `git add .`. The agent asks before each commit, with
   two exceptions: task artifacts, and a plan run that the user started by name (`/subagent-driven-development`,
   `/executing-plans`, "run the plan", or "Run now" at plan approval) after an approval line was recorded in
@@ -71,6 +76,9 @@ These rules apply to every session in a repository that installs athena-starter.
 
 - Roles: `researcher` (read-only), `quick-fix` (mechanical edits), `developer` (implementation), `code-reviewer`,
   `verifier`, `ux-tester`. Reviewers and verifiers do not edit code. Subagents do not start other subagents.
+- Business logic, API contracts, schema, permissions and architecture from MEDIUM go to the `developer` agent. The
+  main agent edits by itself only for LOW tasks of one file and a few mechanical lines; wider mechanical edits go to
+  `quick-fix`. HIGH and CRITICAL run `developer`, then `code-reviewer`, then `verifier`.
 - R-007 When the agent may choose a model, it uses the cheapest one that does the job: a small model for lookups and
   mechanical edits, a mid-tier model for routine coding and review, a top-tier model only when the user asks. A model
   or effort the user set is kept.
