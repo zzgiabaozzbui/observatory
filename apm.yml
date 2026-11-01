@@ -1,0 +1,4 @@
+name: athena-starter
+version: 0.1.0
+description: "Ready-to-use agent rules, skills, agents and safety hooks for Claude Code: routing, planning, TDD, review, docs conventions."
+targets: [claude]

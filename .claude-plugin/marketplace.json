@@ -1,0 +1,5 @@
+{
+  "name": "athena",
+  "owner": { "name": "zzgiabaozzbui" },
+  "plugins": [{ "name": "athena-starter", "source": "./" }]
+}
