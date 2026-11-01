@@ -25,4 +25,8 @@ const tmp = run(JSON.stringify({ source: 'compact' }), mkdtempSync(join(tmpdir()
 assert.equal(tmp.status, 0);
 assert.ok(tmp.stdout.includes('# athena-starter core rules'));
 assert.ok(tmp.stdout.includes('does not invoke'));
+// Entry check must not depend on path spelling (symlink or slash form).
+const viaSlash = spawnSync(process.execPath, [script.replaceAll(String.fromCharCode(92), '/')], { input: '', encoding: 'utf8' });
+assert.equal(viaSlash.status, 0);
+assert.ok(viaSlash.stdout.includes('invokes skill'));
 console.log('session-start selftest ok');

@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 // SessionStart hook: print core rules plus a routing reminder to stdout (added to context).
 import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 
 const START = "Session start: before acting on the user's first message, the agent invokes skill `routing`.";
 const COMPACT = 'Context was just compacted: the agent does not invoke `routing` again; a running plan resumes from intent.md and progress.md.';
@@ -11,7 +10,7 @@ export function output(source, rulesText) {
   return rulesText ? `${rulesText}\n\n${note}\n` : `${note}\n`;
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+if (process.argv[1]?.endsWith('session-start.mjs')) {
   try {
     let source = 'startup';
     try { source = JSON.parse(readFileSync(0, 'utf8')).source ?? source; } catch {}
