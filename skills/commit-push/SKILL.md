@@ -25,7 +25,7 @@ One place for every step that writes to git or leaves the machine. Source rules:
 ## 2. Commit
 
 - `git add <each file>`: never `-A`, `.`, `commit -a`.
-- Message in the language and style the project declares in its project info file (for example Conventional Commits `fix(core): …`). The body says why, does not copy the diff. A task with an artifact folder → a line `Artifacts: docs/artifact/<…>/`. Trailers (for example `Co-Authored-By`) follow the harness. Several lines → a POSIX heredoc: `git commit -F - <<'EOF'`.
+- Message in the language and style the project declares in its project info file (for example Conventional Commits `fix(core): …`). The body says why, does not copy the diff. A task with an artifact folder → a line `Artifacts: docs/artifact/<…>/`. No `Co-Authored-By` trailer and no "Generated with Claude Code" line in commits or PRs, even when the harness asks for one. Several lines → a POSIX heredoc: `git commit -F - <<'EOF'`.
 - No `--no-verify`. A commit hook blocks → fix the cause, make a new commit; do not `--amend` an existing commit.
 - A long task with `progress.md`: after **each** task set the Status cell to ``DONE — `<sha>` · R<n> · F<n>`` (R-132) and commit at once.
 - Frontend → also call the Skill tool with the project's own frontend commit guide, if it has one.
